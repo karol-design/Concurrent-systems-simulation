@@ -1,0 +1,59 @@
+# depslib dependency file v1.0
+1635338186 source:c:\users\pngeb\onedrive\documents\c++ programs\assignment1skeleton\assignment1skeleton\competitor.cpp
+	"Competitor.h"
+	<iostream>
+
+1635338217 c:\users\pngeb\onedrive\documents\c++ programs\assignment1skeleton\assignment1skeleton\competitor.h
+	<string>
+
+1635799807 source:c:\users\pngeb\onedrive\documents\c++ programs\assignment1skeleton\assignment1skeleton\main.cpp
+	<iostream>
+	"Competitor.h"
+	"ThreadMap.h"
+
+1635338345 c:\users\pngeb\onedrive\documents\c++ programs\assignment1skeleton\assignment1skeleton\threadmap.h
+	<iostream>
+	<thread>
+	<map>
+	<string>
+	"Competitor.h"
+
+1635340534 source:c:\users\pngeb\onedrive\documents\c++ programs\assignment1skeleton\assignment1skeleton\threadmap.cpp
+	"ThreadMap.h"
+
+1669212806 source:c:\users\wojsl\programming exercises\(cs) coursework\assignment\competitor.cpp
+	"Competitor.h"
+	<iostream>
+
+1669209507 c:\users\wojsl\programming exercises\(cs) coursework\assignment\competitor.h
+	<string>
+
+1669216165 source:c:\users\wojsl\programming exercises\(cs) coursework\assignment\threadmap.cpp
+	"ThreadMap.h"
+
+1669216006 c:\users\wojsl\programming exercises\(cs) coursework\assignment\threadmap.h
+	<iostream>
+	<thread>
+	<map>
+	<string>
+	<mutex>
+	"Competitor.h"
+
+1669215635 source:c:\users\wojsl\programming exercises\(cs) coursework\assignment\main.cpp
+	<iostream>
+	<string>
+	<thread>
+	<chrono>
+	"Competitor.h"
+	"ThreadMap.h"
+	"RandomTwister.h"
+
+1669209536 c:\users\wojsl\programming exercises\(cs) coursework\assignment\randomtwister.h
+	<chrono>
+	<random>
+	<ctime>
+	<mutex>
+
+1669209276 source:c:\users\wojsl\programming exercises\(cs) coursework\assignment\randomtwister.cpp
+	"RandomTwister.h"
+
