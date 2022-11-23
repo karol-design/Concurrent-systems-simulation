@@ -15,15 +15,15 @@
 #include "Competitor.h"
 #include "RandomTwister.h"
 #include "ThreadMap.h"
-
-const int NO_TEAMS = 4;    // number of teams in the race
-const int NO_MEMBERS = 4;  // number of athletes in the team
+#include "RaceCommon.h"
 
 ThreadMap tMap;     // an instance of a STL Map wrapper class (shared resource)
 RandomTwister rnd;  // an instance of a Random number generator class (shared resource)
 
 /* Function declaration */
 void run(Competitor &c);
+
+void printGo();
 
 /* Main function */
 int main() {
