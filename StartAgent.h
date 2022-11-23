@@ -1,3 +1,5 @@
+#include "SyncAgent.h"
+
 class StartAgent : public SyncAgent { //concrete class that CAN be instantiated
 public:
    StartAgent(); //constructor
