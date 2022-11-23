@@ -1,21 +1,25 @@
+/**
+ * @file    competitor.h
+ * @brief   Competitor class for storing team and name of each athlete
+ * @author  Karol Wojslaw (10746230)
+ */
+
 #pragma once
 
 #include <string>
 
-using namespace std;
+class Competitor {
+   private:
+    std::string teamName;
+    std::string personName;
 
-class Competitor { // created in main and never updated, passed to a thread, placed in map
-private:
-    string teamName;
-    string personName;
-public:
+   public:
     Competitor();
-    Competitor(string tN, string pN);
-    void setTeam(string tN);
-    string getTeam();
-    void setPerson(string pN);
-    string getPerson();
+    Competitor(std::string tN, std::string pN);
+    void setTeam(std::string tN);
+    std::string getTeam();
+    void setPerson(std::string pN);
+    std::string getPerson();
     static Competitor makeNull();
     void printCompetitor();
 };
-

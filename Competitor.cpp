@@ -1,20 +1,25 @@
+/**
+ * @file    competitor.cpp
+ * @brief   Competitor class for storing team and name of each athlete
+ * @author  Karol Wojslaw (10746230)
+ */
+
 #include "Competitor.h"
+
 #include <iostream>
 
 Competitor::Competitor() {}
 
-Competitor::Competitor(string tN, string pN) : teamName(tN), personName(pN) {}
+Competitor::Competitor(std::string tN, std::string pN) : teamName(tN), personName(pN) {}
 
-void Competitor::setTeam(string tN) { teamName = tN; }
-string Competitor::getTeam() { return teamName; }
+void Competitor::setTeam(std::string tN) { teamName = tN; }  // mutators for team and name
+void Competitor::setPerson(std::string pN) { personName = pN; }
 
-void Competitor::setPerson(string pN) { personName = pN; }
-string Competitor::getPerson() { return personName; }
+std::string Competitor::getTeam() { return teamName; }  // accessors for team and name
+std::string Competitor::getPerson() { return personName; }
 
-Competitor Competitor::makeNull() {
-    return *(new Competitor(" ", " "));
-}
+Competitor Competitor::makeNull() { return *(new Competitor(" ", " ")); }  // null object generator
 
-void Competitor::printCompetitor() {
-    std::cout << "Team = " << teamName << "\tPerson = " << personName << std::endl;
+void Competitor::printCompetitor() {  // print team and name
+    std::cout << "Team = " << teamName << "\tPerson = " << personName << endl;
 }
