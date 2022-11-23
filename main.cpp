@@ -19,7 +19,7 @@
 const int NO_TEAMS = 4;    // number of teams in the race
 const int NO_MEMBERS = 4;  // number of athletes in the team
 
-ThreadMap tm;       // an instance of a STL Map wrapper class (shared resource)
+ThreadMap tMap;     // an instance of a STL Map wrapper class (shared resource)
 RandomTwister rnd;  // an instance of a Random number generator class (shared resource)
 
 /* Function declaration */
@@ -55,7 +55,7 @@ int main() {
         }
     }
 
-    tm.printMapContents();
+    tMap.printMapContents();
     return 0;
 }
 
@@ -64,7 +64,7 @@ int main() {
  * @param Competitor pointer to an object of type Competitor
  */
 void run(Competitor &c) {
-    tm.insertThreadPair(c);  // store thread id and an instance of a Competitor class in a map
+    tMap.insertThreadPair(c);  // store thread id and an instance of a Competitor class in a map
 
     int delay_ms = rnd.randomPeriod(9580, 12000);  // assign a random delay between 9.58 and 12 seconds
     double delay_s = ((double)delay_ms) / 1000.00;

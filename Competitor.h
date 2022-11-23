@@ -1,5 +1,5 @@
 /**
- * @file    competitor.h
+ * @file    Competitor.h
  * @brief   Competitor class for storing team and name of each athlete
  * @author  Karol Wojslaw (10746230)
  */

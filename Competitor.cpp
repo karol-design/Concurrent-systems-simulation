@@ -1,5 +1,5 @@
 /**
- * @file    competitor.cpp
+ * @file    Competitor.cpp
  * @brief   Competitor class for storing team and name of each athlete
  * @author  Karol Wojslaw (10746230)
  */
@@ -21,5 +21,5 @@ std::string Competitor::getPerson() { return personName; }
 Competitor Competitor::makeNull() { return *(new Competitor(" ", " ")); }  // null object generator
 
 void Competitor::printCompetitor() {  // print team and name
-    std::cout << "Team = " << teamName << "\tPerson = " << personName << endl;
+    std::cout << "Team = " << teamName << "\tPerson = " << personName << std::endl;
 }
