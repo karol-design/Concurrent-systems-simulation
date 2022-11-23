@@ -1,6 +1,11 @@
 #VS Code files
 .vscode
 
+# Code Blocks files
+.cbp
+.depend
+.layout
+
 # Prerequisites
 *.d
 
