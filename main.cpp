@@ -19,6 +19,7 @@
 #include "StartAgent.h"
 #include "FinishAgent.h"
 #include "EZAgent.h"
+#include "Results.h"
 
 ThreadMap tMap;     // an instance of a STL Map wrapper class (shared resource)
 RandomTwister rnd;  // an instance of a Random number generator class (shared resource)
@@ -35,13 +36,13 @@ int main() {
     Competitor teamsAndMembers[NO_TEAMS][NO_MEMBERS];
     EZAgent exchanges[NO_TEAMS][NO_EXCHANGES];
     StartAgent theStartAgent;
-    FinishAgent theFinishAgent;
+    FinishAgent theFinishAgent(std::ref(tMap));
 
     string teams[NO_TEAMS] = {"Jamaica", "Japan", "UK", "RSA"};
     string members[NO_TEAMS * NO_MEMBERS] = {
-        "Bolt", "Blake", "Frater", "Carter", "Tada", "Shiraishi",
+        "Bolt", "Blake", "Frater", "Carter", "Tada", "Lin",
         "Kiryu", "Brown", "Gemili", "Hughes", "Kilty", "Blake",
-        "Dlodlo", "Magakwe", "Munyai", "Simbine"};
+        "Dlodlo", "Ofili", "Munyai", "Amusan"};
 
     for (int i = 0; i < NO_TEAMS; i++) {  // create and assign all teamsAndMembers objects
         for (int j = 0; j < NO_MEMBERS; j++) {
@@ -66,7 +67,7 @@ int main() {
     std::this_thread::sleep_for(std::chrono::milliseconds(delay_ms));  // block the thread
 
     theStartAgent.proceed();
-    std::cout << "Main: " << "threads unblocked. Go!" << std::endl;
+    std::cout << "Main: " << "threads unblocked. Go!" << std::endl << std::endl;
 
     for (int i = 0; i < NO_TEAMS; i++) {  // join all threads to the main thread
         for (int j = 0; j < NO_MEMBERS; j++) {
@@ -75,6 +76,48 @@ int main() {
     }
 
     tMap.printMapContents();
+    int teamTime[4] = { 0 };
+    int team = 0;
+
+    tMap.initContentIt(); // tMap is the ThreadMap in my program
+    for (int k = 0; k < tMap.ThreadMapSize(); k++) {
+        teamTime[team] += tMap.getNextMappedVal().getRaceTime();
+        if(((k+1)%4) == 0) {team++;}
+        // update team time using tMap.getNextMappedVal()
+        //- a call to this function returns the next Competitor object stored in the map
+    }
+
+    Results res = theFinishAgent.returnResults();
+
+    std::cout << std::endl;
+    std::cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << std::endl;
+    std::cout << "Race Results" << std::endl;
+    std::cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << std::endl;
+    res.printResults();
+    std::cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << std::endl;
+    std::cout << "Total Team Times" << std::endl;
+    std::cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << std::endl;
+
+    for(int i=0; i<NO_TEAMS; i++) {
+        double time_s = ((double)teamTime[i] / 1000.00);
+        std::cout << teamsAndMembers[i][0].getTeam() << "\t" << DP3(time_s) << " s" << std::endl;
+    }
+
+    std::cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << std::endl;
+    std::cout << "Individual Times" << std::endl;
+    std::cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << std::endl;
+
+    for(int i=0; i<NO_TEAMS; i++) {
+        std::cout << teamsAndMembers[i][0].getTeam() << ":" << std::endl;
+        for(int j=0; j<NO_MEMBERS; j++) {
+            int time_ms = teamsAndMembers[i][j].getRaceTime();
+            double time_s = ((double)time_ms/1000.0);
+            std::cout << teamsAndMembers[i][j].getPerson() << ":\t" << DP3(time_s) << " s" << std::endl;
+        }
+        if(i != 3) {std::cout << "%%%%%%%%%%%%%%%" << std::endl;}
+    }
+    std::cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << std::endl;
+
     return 0;
 }
 
@@ -85,19 +128,14 @@ int main() {
  * @param SyncAgent pointer to a synchronisation object for the next thread
  */
 void run(Competitor &c, SyncAgent &thisAgent, SyncAgent &nextAgent) {
-    tMap.insertThreadPair(c);  // store thread id and an instance of a Competitor class in a map
     thisAgent.pause();
 
     int delay_ms = rnd.randomPeriod(9580, 12000);  // assign a random delay between 9.58 and 12 seconds
-    double delay_s = ((double)delay_ms) / 1000.00;
+    c.setRaceTime(delay_ms);
+    tMap.insertThreadPair(c);  // store thread id and an instance of a Competitor class in a map
+
     std::this_thread::sleep_for(std::chrono::milliseconds(delay_ms));  // block the thread
+    std::cout << c.getPerson() << std::endl;
 
     nextAgent.proceed();
-
-    std::cout << competitor << ": " << delay_s << "\t";  // print the competitor and its time
-    c.printCompetitor();
-    competitor++;
-    if(competitor % 4 == 0){
-        std::cout << std::endl;
-    }
 }

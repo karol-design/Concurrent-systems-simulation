@@ -1,10 +1,10 @@
 # include "Results.h"
 
 Results::Results() {
-    resArr[0][0] = "First ";
-    resArr[1][0] = "Second ";
-    resArr[2][0] = "Third ";
-    resArr[3][0] = "Fourth ";
+    resArr[0][0] = "First\t";
+    resArr[1][0] = "Second\t";
+    resArr[2][0] = "Third\t";
+    resArr[3][0] = "Fourth\t";
 }
 
 void Results::setPosition(Competitor c) {

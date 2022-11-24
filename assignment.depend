@@ -21,17 +21,18 @@
 1635340534 source:c:\users\pngeb\onedrive\documents\c++ programs\assignment1skeleton\assignment1skeleton\threadmap.cpp
 	"ThreadMap.h"
 
-1669236857 source:c:\users\wojsl\programming exercises\(cs) coursework\assignment\competitor.cpp
+1669327579 source:c:\users\wojsl\programming exercises\(cs) coursework\assignment\competitor.cpp
 	"Competitor.h"
 	<iostream>
 
-1669314536 c:\users\wojsl\programming exercises\(cs) coursework\assignment\competitor.h
+1669325918 c:\users\wojsl\programming exercises\(cs) coursework\assignment\competitor.h
 	<string>
+	"RaceCommon.h"
 
-1669236687 source:c:\users\wojsl\programming exercises\(cs) coursework\assignment\threadmap.cpp
+1669317653 source:c:\users\wojsl\programming exercises\(cs) coursework\assignment\threadmap.cpp
 	"ThreadMap.h"
 
-1669236886 c:\users\wojsl\programming exercises\(cs) coursework\assignment\threadmap.h
+1669319768 c:\users\wojsl\programming exercises\(cs) coursework\assignment\threadmap.h
 	<iostream>
 	<map>
 	<mutex>
@@ -39,7 +40,7 @@
 	<thread>
 	"Competitor.h"
 
-1669313733 source:c:\users\wojsl\programming exercises\(cs) coursework\assignment\main.cpp
+1669325724 source:c:\users\wojsl\programming exercises\(cs) coursework\assignment\main.cpp
 	<chrono>
 	<iostream>
 	<string>
@@ -51,6 +52,7 @@
 	"StartAgent.h"
 	"FinishAgent.h"
 	"EZAgent.h"
+	"Results.h"
 
 1669235937 c:\users\wojsl\programming exercises\(cs) coursework\assignment\randomtwister.h
 	<chrono>
@@ -67,8 +69,9 @@
 1669238465 c:\users\wojsl\programming exercises\(cs) coursework\assignment\racebasics.h
 	<iostream>
 
-1669304777 c:\users\wojsl\programming exercises\(cs) coursework\assignment\racecommon.h
+1669325963 c:\users\wojsl\programming exercises\(cs) coursework\assignment\racecommon.h
 	<iostream>
+	<iomanip>
 
 1669303017 source:c:\users\wojsl\programming exercises\(cs) coursework\assignment\startagent.cpp
 	<iostream>
@@ -91,7 +94,7 @@
 	<condition_variable>
 	"SyncAgent.h"
 
-1669313264 source:c:\users\wojsl\programming exercises\(cs) coursework\assignment\results.cpp
+1669324544 source:c:\users\wojsl\programming exercises\(cs) coursework\assignment\results.cpp
 	"Results.h"
 
 1669313305 c:\users\wojsl\programming exercises\(cs) coursework\assignment\results.h
@@ -99,10 +102,10 @@
 	<string>
 	"Competitor.h"
 
-1669313396 source:c:\users\wojsl\programming exercises\(cs) coursework\assignment\finishagent.cpp
+1669327681 source:c:\users\wojsl\programming exercises\(cs) coursework\assignment\finishagent.cpp
 	"FinishAgent.h"
 
-1669313421 c:\users\wojsl\programming exercises\(cs) coursework\assignment\finishagent.h
+1669327680 c:\users\wojsl\programming exercises\(cs) coursework\assignment\finishagent.h
 	<iostream>
 	<mutex>
 	"SyncAgent.h"

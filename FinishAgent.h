@@ -9,12 +9,13 @@
 
 class FinishAgent : public SyncAgent {
 private:
-    //Results r;
-    //ThreadMap& tMap;
+    Results r;
+    ThreadMap& tMap;
+    std::mutex finish_mutex;  // mutex for synchronising threads on finish
 public:
-    FinishAgent (); //FinishAgent (ThreadMap& t);
+    FinishAgent (ThreadMap& t);
     void proceed();
     void pause();
     Results returnResults();
-//    void setThreadMap(ThreadMap& t);
+    void setThreadMap(ThreadMap& t);
 };

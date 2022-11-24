@@ -16,7 +16,7 @@ void ThreadMap::insertThreadPair(Competitor c) {
     threadComp.insert(p);  // store the pair in the map using the map insert member function
 }  // thread_mu mutex is automatically released when the lock_guard object goes out of scope
 
-Competitor ThreadMap::getThreadId() {
+Competitor ThreadMap::getCompetitor() {
     // Use an iterator and find method to look for an ID
     map<thread::id, Competitor>::iterator it = threadComp.find(this_thread::get_id());
     if (it == threadComp.end()) {
@@ -32,10 +32,24 @@ void ThreadMap::printMapContents() {
     // Use an iterator to print all elements in the map
     map<thread::id, Competitor>::iterator it = threadComp.begin();
     for (it = threadComp.begin(); it != threadComp.end(); it++) {
-        cout << "Thread ID = " << (it->first) << "\t";
+        cout << "Thread ID: " << (it->first) << "\t";
         (it->second).printCompetitor();
     }
     cout << "End map contents" << endl;
+}
+
+void ThreadMap::initContentIt(){
+    contentIt = threadComp.begin();
+}
+
+Competitor ThreadMap::getNextMappedVal() {
+	Competitor c;
+	if (contentIt != threadComp.end())
+		c = contentIt->second;
+	else
+		c = contentIt->second.makeNull();
+	contentIt++;
+	return c;
 }
 
 int ThreadMap::ThreadMapSize() { return threadComp.size(); }

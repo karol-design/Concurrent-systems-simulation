@@ -7,6 +7,7 @@
 #pragma once
 
 #include <string>
+#include "RaceCommon.h"
 
 class Competitor {
    private:

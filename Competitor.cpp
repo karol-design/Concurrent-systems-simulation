@@ -23,5 +23,5 @@ int Competitor::getRaceTime() { return raceTime; }
 Competitor Competitor::makeNull() { return *(new Competitor(" ", " ")); }  // null object generator
 
 void Competitor::printCompetitor() {  // print team and name
-    std::cout << "Team = " << teamName << "\tPerson = " << personName << std::endl;
+    std::cout << "Team: " << teamName << "\tName: " << personName << "\tTime: " << raceTime << std::endl;
 }
