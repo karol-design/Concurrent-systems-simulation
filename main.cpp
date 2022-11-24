@@ -16,19 +16,26 @@
 #include "RandomTwister.h"
 #include "ThreadMap.h"
 #include "RaceCommon.h"
+#include "StartAgent.h"
+#include "FinishAgent.h"
+#include "EZAgent.h"
 
 ThreadMap tMap;     // an instance of a STL Map wrapper class (shared resource)
 RandomTwister rnd;  // an instance of a Random number generator class (shared resource)
 
-/* Function declaration */
-void run(Competitor &c);
+int competitor = 0;
 
-void printGo();
+
+/* Function declaration */
+void run(Competitor &c, SyncAgent &thisAgent, SyncAgent &nextAgent);
 
 /* Main function */
 int main() {
     thread theThreads[NO_TEAMS][NO_MEMBERS];  // arrays of threads and objects representing athletes
     Competitor teamsAndMembers[NO_TEAMS][NO_MEMBERS];
+    EZAgent exchanges[NO_TEAMS][NO_EXCHANGES];
+    StartAgent theStartAgent;
+    FinishAgent theFinishAgent;
 
     string teams[NO_TEAMS] = {"Jamaica", "Japan", "UK", "RSA"};
     string members[NO_TEAMS * NO_MEMBERS] = {
@@ -43,11 +50,23 @@ int main() {
     }
 
     for (int i = 0; i < NO_TEAMS; i++) {  // create and assign all theThreads threads
-        for (int j = 0; j < NO_MEMBERS; j++) {
-            // Pass a Competitor object as an argument
-            theThreads[i][j] = std::thread(run, std::ref(teamsAndMembers[i][j]));
-        }
+        theThreads[i][0] = std::thread(run, std::ref(teamsAndMembers[i][0]), std::ref(theStartAgent), std::ref(exchanges[i][0]));
+        theThreads[i][1] = std::thread(run, std::ref(teamsAndMembers[i][1]), std::ref(exchanges[i][0]), std::ref(exchanges[i][1]));
+        theThreads[i][2] = std::thread(run, std::ref(teamsAndMembers[i][2]), std::ref(exchanges[i][1]), std::ref(exchanges[i][2]));
+        theThreads[i][3] = std::thread(run, std::ref(teamsAndMembers[i][3]), std::ref(exchanges[i][2]), std::ref(theFinishAgent));
     }
+
+    std::cout << "Main: threads created" << std::endl;
+
+    while(theStartAgent.readyToStart() == false) {} // Wait until all threads are blocked and ready to start
+
+    int delay_ms = rnd.randomPeriod(1000, 4000);  // wait for a random delay between 1 and 4 seconds
+    std::cout << "Main: all threads blocked. " << delay_ms << " ms delay..." << std::endl;
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(delay_ms));  // block the thread
+
+    theStartAgent.proceed();
+    std::cout << "Main: " << "threads unblocked. Go!" << std::endl;
 
     for (int i = 0; i < NO_TEAMS; i++) {  // join all threads to the main thread
         for (int j = 0; j < NO_MEMBERS; j++) {
@@ -61,15 +80,24 @@ int main() {
 
 /**
  * @brief Simulate an athlete: randomly assign run time, map thread into competitor
- * @param Competitor pointer to an object of type Competitor
+ * @param Competitor pointer to a competitor object
+ * @param SyncAgent pointer to a synchronisation object for this thread
+ * @param SyncAgent pointer to a synchronisation object for the next thread
  */
-void run(Competitor &c) {
+void run(Competitor &c, SyncAgent &thisAgent, SyncAgent &nextAgent) {
     tMap.insertThreadPair(c);  // store thread id and an instance of a Competitor class in a map
+    thisAgent.pause();
 
     int delay_ms = rnd.randomPeriod(9580, 12000);  // assign a random delay between 9.58 and 12 seconds
     double delay_s = ((double)delay_ms) / 1000.00;
     std::this_thread::sleep_for(std::chrono::milliseconds(delay_ms));  // block the thread
 
-    std::cout << delay_s << "\t";  // print the competitor and its time
+    nextAgent.proceed();
+
+    std::cout << competitor << ": " << delay_s << "\t";  // print the competitor and its time
     c.printCompetitor();
+    competitor++;
+    if(competitor % 4 == 0){
+        std::cout << std::endl;
+    }
 }

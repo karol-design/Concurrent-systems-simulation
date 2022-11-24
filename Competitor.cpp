@@ -14,9 +14,11 @@ Competitor::Competitor(std::string tN, std::string pN) : teamName(tN), personNam
 
 void Competitor::setTeam(std::string tN) { teamName = tN; }  // mutators for team and name
 void Competitor::setPerson(std::string pN) { personName = pN; }
+void Competitor::setRaceTime(int rt) { raceTime = rt; }
 
 std::string Competitor::getTeam() { return teamName; }  // accessors for team and name
 std::string Competitor::getPerson() { return personName; }
+int Competitor::getRaceTime() { return raceTime; }
 
 Competitor Competitor::makeNull() { return *(new Competitor(" ", " ")); }  // null object generator
 

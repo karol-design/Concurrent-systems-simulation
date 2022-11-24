@@ -1,3 +1,6 @@
+#pragma once
+
+#include "RaceCommon.h"
 
 // Note that there is some debate in the C++ world about whether a .cpp file is needed or appropriate for an abstract class
 // - see https://stackoverflow.com/questions/14001356/do-i-need-to-have-a-cpp-file-for-an-abstract-class
@@ -10,7 +13,6 @@ public:
    virtual void pause() = 0;
    virtual void proceed() = 0;
    bool readyToStart();
-   ~SyncAgent();
 protected:
     int readyCount;
 }; //end abstract class SyncAgent

@@ -21,39 +21,92 @@
 1635340534 source:c:\users\pngeb\onedrive\documents\c++ programs\assignment1skeleton\assignment1skeleton\threadmap.cpp
 	"ThreadMap.h"
 
-1669235364 source:c:\users\wojsl\programming exercises\(cs) coursework\assignment\competitor.cpp
+1669236857 source:c:\users\wojsl\programming exercises\(cs) coursework\assignment\competitor.cpp
 	"Competitor.h"
 	<iostream>
 
-1669235213 c:\users\wojsl\programming exercises\(cs) coursework\assignment\competitor.h
+1669314536 c:\users\wojsl\programming exercises\(cs) coursework\assignment\competitor.h
 	<string>
 
-1669216209 source:c:\users\wojsl\programming exercises\(cs) coursework\assignment\threadmap.cpp
+1669236687 source:c:\users\wojsl\programming exercises\(cs) coursework\assignment\threadmap.cpp
 	"ThreadMap.h"
 
-1669216006 c:\users\wojsl\programming exercises\(cs) coursework\assignment\threadmap.h
+1669236886 c:\users\wojsl\programming exercises\(cs) coursework\assignment\threadmap.h
 	<iostream>
-	<thread>
 	<map>
-	<string>
 	<mutex>
+	<string>
+	<thread>
 	"Competitor.h"
 
-1669215635 source:c:\users\wojsl\programming exercises\(cs) coursework\assignment\main.cpp
+1669313733 source:c:\users\wojsl\programming exercises\(cs) coursework\assignment\main.cpp
+	<chrono>
 	<iostream>
 	<string>
 	<thread>
-	<chrono>
 	"Competitor.h"
-	"ThreadMap.h"
 	"RandomTwister.h"
+	"ThreadMap.h"
+	"RaceCommon.h"
+	"StartAgent.h"
+	"FinishAgent.h"
+	"EZAgent.h"
 
-1669209536 c:\users\wojsl\programming exercises\(cs) coursework\assignment\randomtwister.h
+1669235937 c:\users\wojsl\programming exercises\(cs) coursework\assignment\randomtwister.h
 	<chrono>
-	<random>
 	<ctime>
 	<mutex>
+	<random>
 
-1669209276 source:c:\users\wojsl\programming exercises\(cs) coursework\assignment\randomtwister.cpp
+1669235955 source:c:\users\wojsl\programming exercises\(cs) coursework\assignment\randomtwister.cpp
 	"RandomTwister.h"
+
+1669304641 source:c:\users\wojsl\programming exercises\(cs) coursework\assignment\syncagent.cpp
+	"SyncAgent.h"
+
+1669238465 c:\users\wojsl\programming exercises\(cs) coursework\assignment\racebasics.h
+	<iostream>
+
+1669304777 c:\users\wojsl\programming exercises\(cs) coursework\assignment\racecommon.h
+	<iostream>
+
+1669303017 source:c:\users\wojsl\programming exercises\(cs) coursework\assignment\startagent.cpp
+	<iostream>
+	<thread>
+	"StartAgent.h"
+
+1669304612 c:\users\wojsl\programming exercises\(cs) coursework\assignment\startagent.h
+	<mutex>
+	<condition_variable>
+	"SyncAgent.h"
+
+1669304611 c:\users\wojsl\programming exercises\(cs) coursework\assignment\syncagent.h
+	"RaceCommon.h"
+
+1669304394 source:c:\users\wojsl\programming exercises\(cs) coursework\assignment\ezagent.cpp
+	"EZAgent.h"
+
+1669304571 c:\users\wojsl\programming exercises\(cs) coursework\assignment\ezagent.h
+	<mutex>
+	<condition_variable>
+	"SyncAgent.h"
+
+1669313264 source:c:\users\wojsl\programming exercises\(cs) coursework\assignment\results.cpp
+	"Results.h"
+
+1669313305 c:\users\wojsl\programming exercises\(cs) coursework\assignment\results.h
+	<iostream>
+	<string>
+	"Competitor.h"
+
+1669313396 source:c:\users\wojsl\programming exercises\(cs) coursework\assignment\finishagent.cpp
+	"FinishAgent.h"
+
+1669313421 c:\users\wojsl\programming exercises\(cs) coursework\assignment\finishagent.h
+	<iostream>
+	<mutex>
+	"SyncAgent.h"
+	"ThreadMap.h"
+	"Competitor.h"
+	"Results.h"
 
