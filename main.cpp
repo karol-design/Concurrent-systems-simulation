@@ -21,17 +21,16 @@
 #include "EZAgent.h"
 #include "Results.h"
 
-ThreadMap tMap;     // an instance of a STL Map wrapper class (shared resource)
-RandomTwister rnd;  // an instance of a Random number generator class (shared resource)
-
-int competitor = 0;
-
+#define DEBUG true
 
 /* Function declaration */
-void run(Competitor &c, SyncAgent &thisAgent, SyncAgent &nextAgent);
+void run(Competitor &c, SyncAgent &thisAgent, SyncAgent &nextAgent, ThreadMap &tMap);
 
 /* Main function */
 int main() {
+    ThreadMap tMap;     // an instance of a STL Map wrapper class (shared resource)
+    RandomTwister rnd;  // an instance of a Random number generator class
+
     thread theThreads[NO_TEAMS][NO_MEMBERS];  // arrays of threads and objects representing athletes
     Competitor teamsAndMembers[NO_TEAMS][NO_MEMBERS];
     EZAgent exchanges[NO_TEAMS][NO_EXCHANGES];
@@ -51,23 +50,38 @@ int main() {
     }
 
     for (int i = 0; i < NO_TEAMS; i++) {  // create and assign all theThreads threads
-        theThreads[i][0] = std::thread(run, std::ref(teamsAndMembers[i][0]), std::ref(theStartAgent), std::ref(exchanges[i][0]));
-        theThreads[i][1] = std::thread(run, std::ref(teamsAndMembers[i][1]), std::ref(exchanges[i][0]), std::ref(exchanges[i][1]));
-        theThreads[i][2] = std::thread(run, std::ref(teamsAndMembers[i][2]), std::ref(exchanges[i][1]), std::ref(exchanges[i][2]));
-        theThreads[i][3] = std::thread(run, std::ref(teamsAndMembers[i][3]), std::ref(exchanges[i][2]), std::ref(theFinishAgent));
+        theThreads[i][0] = std::thread(run, std::ref(teamsAndMembers[i][0]),
+                                            std::ref(theStartAgent),
+                                            std::ref(exchanges[i][0]),
+                                            std::ref(tMap));
+
+        theThreads[i][1] = std::thread(run, std::ref(teamsAndMembers[i][1]),
+                                            std::ref(exchanges[i][0]),
+                                            std::ref(exchanges[i][1]),
+                                            std::ref(tMap));
+
+        theThreads[i][2] = std::thread(run, std::ref(teamsAndMembers[i][2]),
+                                            std::ref(exchanges[i][1]),
+                                            std::ref(exchanges[i][2]),
+                                            std::ref(tMap));
+
+        theThreads[i][3] = std::thread(run, std::ref(teamsAndMembers[i][3]),
+                                            std::ref(exchanges[i][2]),
+                                            std::ref(theFinishAgent),
+                                            std::ref(tMap));
     }
 
-    std::cout << "Main: threads created" << std::endl;
+    if(DEBUG){std::cout << "main: Threads created successfully" << std::endl;}
 
     while(theStartAgent.readyToStart() == false) {} // Wait until all threads are blocked and ready to start
 
     int delay_ms = rnd.randomPeriod(1000, 4000);  // wait for a random delay between 1 and 4 seconds
-    std::cout << "Main: all threads blocked. " << delay_ms << " ms delay..." << std::endl;
+    if(DEBUG){std::cout << "main: All threads in the START position blocked. " << delay_ms << " ms delay..." << std::endl;}
 
     std::this_thread::sleep_for(std::chrono::milliseconds(delay_ms));  // block the thread
 
     theStartAgent.proceed();
-    std::cout << "Main: " << "threads unblocked. Go!" << std::endl << std::endl;
+    if(DEBUG){std::cout << "main: START threads unblocked. Go!" << std::endl << std::endl;}
 
     for (int i = 0; i < NO_TEAMS; i++) {  // join all threads to the main thread
         for (int j = 0; j < NO_MEMBERS; j++) {
@@ -75,7 +89,7 @@ int main() {
         }
     }
 
-    tMap.printMapContents();
+    if(DEBUG){tMap.printMapContents();}
     int teamTime[4] = { 0 };
     int team = 0;
 
@@ -127,15 +141,17 @@ int main() {
  * @param SyncAgent pointer to a synchronisation object for this thread
  * @param SyncAgent pointer to a synchronisation object for the next thread
  */
-void run(Competitor &c, SyncAgent &thisAgent, SyncAgent &nextAgent) {
+void run(Competitor &c, SyncAgent &thisAgent, SyncAgent &nextAgent, ThreadMap &tMap) {
+    RandomTwister rnd;
     thisAgent.pause();
 
     int delay_ms = rnd.randomPeriod(9580, 12000);  // assign a random delay between 9.58 and 12 seconds
+    double delay_s = ((double)delay_ms / 1000.0);
     c.setRaceTime(delay_ms);
     tMap.insertThreadPair(c);  // store thread id and an instance of a Competitor class in a map
 
     std::this_thread::sleep_for(std::chrono::milliseconds(delay_ms));  // block the thread
-    std::cout << c.getPerson() << std::endl;
+    if(DEBUG){std::cout << "run: " << c.getPerson() << "\t" << DP3(delay_s) << " s" << std::endl;}
 
     nextAgent.proceed();
 }
