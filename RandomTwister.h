@@ -11,12 +11,10 @@
 #include <mutex>
 #include <random>
 
-using namespace std;
-
 class RandomTwister {
    private:
-    std::mt19937 rnd;    // mt19937 type object
-    std::mutex rand_mu;  // mutex for generating random number
+    std::mt19937 rnd;    // standard mersenne_twister_engine object
+    std::mutex rand_mu;  // mutex for guarding the CS
 
    public:
     RandomTwister();

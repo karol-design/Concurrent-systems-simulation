@@ -2,12 +2,12 @@
  * @file    main.c
  * @brief   This program simulates four-by-one hundred metres sprint relay race. There are four competing
  *          teams and four athletes in every team, each represented by a unique thread executing the run
- *          function. The code utilise c++ maps, mutexes, random number generation, synchronisation
+ *          function. The code utilise c++ map, mutexes, random number generation, synchronisation
  *          mechanisms.
  * @author  Karol Wojslaw (10746230)
  */
 
-#include <chrono>  // time conversion
+#include <chrono>
 #include <iostream>
 #include <string>
 #include <thread>
@@ -23,22 +23,23 @@
 
 #define DEBUG true
 
+RandomTwister rnd;  // an instance of a Random number generator class
+
 /* Function declaration */
 void run(Competitor &c, SyncAgent &thisAgent, SyncAgent &nextAgent, ThreadMap &tMap);
 
 /* Main function */
 int main() {
     ThreadMap tMap;     // an instance of a STL Map wrapper class (shared resource)
-    RandomTwister rnd;  // an instance of a Random number generator class
 
-    thread theThreads[NO_TEAMS][NO_MEMBERS];  // arrays of threads and objects representing athletes
+    std::thread theThreads[NO_TEAMS][NO_MEMBERS];  // arrays of threads and objects representing athletes
     Competitor teamsAndMembers[NO_TEAMS][NO_MEMBERS];
     EZAgent exchanges[NO_TEAMS][NO_EXCHANGES];
     StartAgent theStartAgent;
     FinishAgent theFinishAgent(std::ref(tMap));
 
-    string teams[NO_TEAMS] = {"Jamaica", "Japan", "UK", "RSA"};
-    string members[NO_TEAMS * NO_MEMBERS] = {
+    std::string teams[NO_TEAMS] = {"Jamaica", "Japan", "UK", "RSA"};
+    std::string members[NO_TEAMS * NO_MEMBERS] = {
         "Bolt", "Blake", "Frater", "Carter", "Tada", "Lin",
         "Kiryu", "Brown", "Gemili", "Hughes", "Kilty", "Blake",
         "Dlodlo", "Ofili", "Munyai", "Amusan"};
@@ -71,17 +72,17 @@ int main() {
                                             std::ref(tMap));
     }
 
-    if(DEBUG){std::cout << "main: Threads created successfully" << std::endl;}
+    if(DEBUG){std::cout << "main id " << std::this_thread::get_id() << ": Threads created successfully" << std::endl;}
 
     while(theStartAgent.readyToStart() == false) {} // Wait until all threads are blocked and ready to start
 
     int delay_ms = rnd.randomPeriod(1000, 4000);  // wait for a random delay between 1 and 4 seconds
-    if(DEBUG){std::cout << "main: All threads in the START position blocked. " << delay_ms << " ms delay..." << std::endl;}
+    if(DEBUG){std::cout << "main id " << std::this_thread::get_id() << ": All threads in the START position blocked. " << delay_ms << " ms delay..." << std::endl;}
 
     std::this_thread::sleep_for(std::chrono::milliseconds(delay_ms));  // block the thread
 
     theStartAgent.proceed();
-    if(DEBUG){std::cout << "main: START threads unblocked. Go!" << std::endl << std::endl;}
+    if(DEBUG){std::cout << "main id " << std::this_thread::get_id() << ": START threads unblocked. Go!" << std::endl << std::endl;}
 
     for (int i = 0; i < NO_TEAMS; i++) {  // join all threads to the main thread
         for (int j = 0; j < NO_MEMBERS; j++) {
@@ -142,7 +143,6 @@ int main() {
  * @param SyncAgent pointer to a synchronisation object for the next thread
  */
 void run(Competitor &c, SyncAgent &thisAgent, SyncAgent &nextAgent, ThreadMap &tMap) {
-    RandomTwister rnd;
     thisAgent.pause();
 
     int delay_ms = rnd.randomPeriod(9580, 12000);  // assign a random delay between 9.58 and 12 seconds
@@ -151,7 +151,7 @@ void run(Competitor &c, SyncAgent &thisAgent, SyncAgent &nextAgent, ThreadMap &t
     tMap.insertThreadPair(c);  // store thread id and an instance of a Competitor class in a map
 
     std::this_thread::sleep_for(std::chrono::milliseconds(delay_ms));  // block the thread
-    if(DEBUG){std::cout << "run: " << c.getPerson() << "\t" << DP3(delay_s) << " s" << std::endl;}
+    if(DEBUG){std::cout << "run:\t" << c.getPerson() << "\t" << DP3(delay_s) << " s" << std::endl;}
 
     nextAgent.proceed();
 }

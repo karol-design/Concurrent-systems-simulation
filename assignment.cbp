@@ -34,10 +34,15 @@
 		</Compiler>
 		<Unit filename="Competitor.cpp" />
 		<Unit filename="Competitor.h" />
+		<Unit filename="EZAgent.cpp" />
 		<Unit filename="EZAgent.h" />
+		<Unit filename="FinishAgent.cpp" />
+		<Unit filename="FinishAgent.h" />
 		<Unit filename="RaceCommon.h" />
 		<Unit filename="RandomTwister.cpp" />
 		<Unit filename="RandomTwister.h" />
+		<Unit filename="Results.cpp" />
+		<Unit filename="Results.h" />
 		<Unit filename="StartAgent.cpp" />
 		<Unit filename="StartAgent.h" />
 		<Unit filename="SyncAgent.cpp" />
