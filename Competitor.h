@@ -6,20 +6,29 @@
 
 #pragma once
 
+#include <iostream>
 #include <string>
+
+#include "RaceCommon.h"
 
 class Competitor {
    private:
     std::string teamName;
     std::string personName;
+    int raceTime;
 
    public:
     Competitor();
     Competitor(std::string tN, std::string pN);
+
     void setTeam(std::string tN);
-    std::string getTeam();
     void setPerson(std::string pN);
+    void setRaceTime(int rt);
+
+    std::string getTeam();
     std::string getPerson();
+    int getRaceTime();
+
     static Competitor makeNull();
     void printCompetitor();
 };

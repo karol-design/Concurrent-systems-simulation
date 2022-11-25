@@ -16,13 +16,16 @@
 
 class ThreadMap {
    private:
-    std::map<std::thread::id, Competitor> threadComp;  // map of thread ids with Competitor objects
-    std::mutex thread_mu;                              // mutex for inserting a new thread - competitor pair
+    std::map<std::thread::id, Competitor> threadComp;           // map of thread ids with Competitor objects
+    std::map<std::thread::id, Competitor>::iterator contentIt;  // iterator for the map
+    std::mutex thread_mu;                                       // mutex for inserting a new thread - competitor pair
 
    public:
     ThreadMap();
     void insertThreadPair(Competitor c);
-    Competitor getThreadId();
     void printMapContents();
+    void initContentIt();
     int ThreadMapSize();
+    Competitor getCompetitor();
+    Competitor getNextMappedVal();
 };
