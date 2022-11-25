@@ -21,7 +21,7 @@
 #include "StartAgent.h"
 #include "ThreadMap.h"
 
-#define DEBUG false // turn debug messages on / off
+#define DEBUG true // turn debug messages on / off
 
 RandomTwister rnd;  // an instance of a Random number generator class
 
