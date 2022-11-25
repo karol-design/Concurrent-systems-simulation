@@ -6,7 +6,9 @@
 
 #pragma once
 
+#include <iostream>
 #include <string>
+
 #include "RaceCommon.h"
 
 class Competitor {

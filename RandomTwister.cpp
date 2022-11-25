@@ -7,7 +7,7 @@
 #include "RandomTwister.h"
 
 /**
- * @brief RandomTwister constructor. Seeds the mersenne_twister_engine with time value
+ * @brief Constructor. Seeds the mersenne_twister_engine with time value
  */
 RandomTwister::RandomTwister() : rnd(std::chrono::high_resolution_clock::now().time_since_epoch().count()) {}
 
@@ -22,4 +22,4 @@ int RandomTwister::randomPeriod(int l, int u) {
     std::uniform_int_distribution<int> dis(l, u);
     int number = dis(rnd);
     return number;
-}   // guard goes out of scope, rand_mu mutex is released
+}  // guard goes out of scope, rand_mu mutex is released
