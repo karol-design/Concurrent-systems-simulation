@@ -1,18 +1,20 @@
+/**
+ * @file    SyncAgent.h
+ * @brief   Synchronisation agent abstract class
+ * @author  Karol Wojslaw (10746230)
+ */
+
 #pragma once
 
 #include "RaceCommon.h"
 
-// Note that there is some debate in the C++ world about whether a .cpp file is needed or appropriate for an abstract class
-// - see https://stackoverflow.com/questions/14001356/do-i-need-to-have-a-cpp-file-for-an-abstract-class
-// Here SyncAgent has a none virtual member function (readyToStart) so both a .h and .cpp file should be used
-
-class SyncAgent { //abstract base class
-public:
-   SyncAgent(); //constructor
-   // Declare virtual methods to be overridden by derived classes
-   virtual void pause() = 0;
-   virtual void proceed() = 0;
-   bool readyToStart();
-protected:
+class SyncAgent {
+   protected:
     int readyCount;
-}; //end abstract class SyncAgent
+
+   public:
+    SyncAgent();
+    virtual void pause() = 0;    // virtual pause method to be overridden by derived classes
+    virtual void proceed() = 0;  // virtual proceed method to be overridden by derived classes
+    bool readyToStart();
+};

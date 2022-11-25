@@ -1,18 +1,25 @@
+/**
+ * @file    StartAgent.h
+ * @brief   Start zone synchronisation agent class
+ * @author  Karol Wojslaw (10746230)
+ */
+
 #pragma once
 
-#include <mutex>
 #include <condition_variable>
+#include <iostream>
+#include <mutex>
+#include <thread>
 
 #include "SyncAgent.h"
 
-class StartAgent : public SyncAgent { //concrete class that CAN be instantiated
-public:
-   StartAgent(); //constructor
-   void pause();
-   void proceed();
-private:
-    std::mutex start_mu;  // mutex for synchronising threads on start
-    std::condition_variable cv; // condition variable for synchronising threads on start
+class StartAgent : public SyncAgent {
+   private:
+    std::mutex start_mu;         // mutex for synchronising threads on start
+    std::condition_variable cv;  // condition variable for synchronising threads on start
 
-   // insert necessary data members including variables, mutexes, locks, cond vars
-}; //end class StartAgent
+   public:
+    StartAgent();
+    void pause();
+    void proceed();
+};

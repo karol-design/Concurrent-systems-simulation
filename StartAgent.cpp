@@ -1,18 +1,29 @@
-#include <iostream>
-#include <thread>
+/**
+ * @file    StartAgent.h
+ * @brief   Start zone synchronisation agent class
+ * @author  Karol Wojslaw (10746230)
+ */
 
 #include "StartAgent.h"
 
-StartAgent::StartAgent() {} //constructor
+/**
+ * @brief Constructor
+ */
+StartAgent::StartAgent() {}
 
+/**
+ * @brief Increment the readyCount and pause the calling thread
+ */
 void StartAgent::pause() {
-    std::unique_lock<std::mutex> lk (start_mu);
+    std::unique_lock<std::mutex> lk(start_mu);  // Guard the CS with a mutex lock
     readyCount++;
     cv.wait(lk);
 }
 
+/**
+ * @brief Unblock all threads blocked in the cv Condition Variable (to be called by main)
+ */
 void StartAgent::proceed() {
-    // insert code to implement releasing of all athlete threads
-    std::unique_lock<std::mutex> lk (start_mu);
+    std::unique_lock<std::mutex> lk(start_mu);
     cv.notify_all();
 }

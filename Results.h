@@ -1,14 +1,21 @@
-#pragma once
+/**
+ * @file    Results.h
+ * @brief   Results class for allocating places in the race
+ * @author  Karol Wojslaw (10746230)
+ */
 
 #pragma once
+
 #include <iostream>
 #include <string>
+
 #include "Competitor.h"
 
 class Results {
-private:
+   private:
     std::string resArr[4][2];
-public:
+
+   public:
     Results();
     void setPosition(Competitor c);
     void printResults();

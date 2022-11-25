@@ -6,6 +6,9 @@
 
 #include "ThreadMap.h"
 
+/**
+ * @brief Constructor
+ */
 ThreadMap::ThreadMap(){};
 
 /**
@@ -51,7 +54,7 @@ void ThreadMap::printMapContents() {
 /**
  * @brief Place content iterator at the beginning of the map
  */
-void ThreadMap::initContentIt(){
+void ThreadMap::initContentIt() {
     contentIt = threadComp.begin();
 }
 
@@ -60,13 +63,13 @@ void ThreadMap::initContentIt(){
  * @return Competitor object at the position pointed by the iterator
  */
 Competitor ThreadMap::getNextMappedVal() {
-	Competitor c;
-	if (contentIt != threadComp.end())
-		c = contentIt->second;
-	else
-		c = contentIt->second.makeNull();
-	contentIt++;
-	return c;
+    Competitor c;
+    if (contentIt != threadComp.end())
+        c = contentIt->second;
+    else
+        c = contentIt->second.makeNull();
+    contentIt++;
+    return c;
 }
 
 /**
